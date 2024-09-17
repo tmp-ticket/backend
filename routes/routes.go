@@ -7,16 +7,6 @@ import (
 )
 
 /*
-Basic hello world function that recieves a request from the http server in net/http and writes out
-that a request was recieved and logged to the console and sends back "Hello World!" to the requester.
-*/
-func HelloWorld(w http.ResponseWriter, r *http.Request) {
-	log.Println("Recieved Request on /HelloWorld")
-
-	io.WriteString(w, "Hello World!")
-}
-
-/*
 Route struct that contains a path string and handler function for http requests.
 Is to be used inside of ServerSetup for convenience.
 */
@@ -25,10 +15,20 @@ type Route struct {
 	Handler func(http.ResponseWriter, *http.Request)
 }
 
-// Convenient list of routes to funuctions.
+// Convenient list of routes to funuctions to be added to the http server.
 // DO NOT ADD ROUTES WHILE SERVER IS RUNNING!
 var routes = []Route{
 	{"/HelloWorld", HelloWorld},
+}
+
+/*
+Basic hello world function that recieves a request from the http server in net/http and writes out
+that a request was recieved and logged to the console and sends back "Hello World!" to the requester.
+*/
+func HelloWorld(w http.ResponseWriter, r *http.Request) {
+	log.Println("Recieved Request on /HelloWorld")
+
+	io.WriteString(w, "Hello World!")
 }
 
 // Convenience function to create an http server with routes needed for API.
