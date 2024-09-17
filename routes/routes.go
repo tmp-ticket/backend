@@ -10,16 +10,15 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Recieved Request")
 
 	io.WriteString(w, "Hello World!")
-
 }
 
-func ServerSetup() *http.Server {
+func ServerSetup(Addr string) *http.Server {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", HelloWorld)
 
 	server := &http.Server{
-		Addr:    ":8080",
+		Addr:    Addr,
 		Handler: mux,
 	}
 	return server

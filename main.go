@@ -8,12 +8,13 @@ import (
 
 func main() {
 
-	server := routes.ServerSetup()
+	const addr = ":8080"
+
+	server := routes.ServerSetup(addr)
 
 	err := server.ListenAndServe()
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-
 }
