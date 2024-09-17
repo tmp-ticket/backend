@@ -8,7 +8,7 @@ import (
 
 /*
 Basic hello world function that recieves a request from the http server in net/http and writes out
-that a request was recieved and logged to the console and sends back "Hello World!" to the requester
+that a request was recieved and logged to the console and sends back "Hello World!" to the requester.
 */
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	log.Println("Recieved Request on /HelloWorld")
@@ -42,7 +42,7 @@ func ServerSetup(Addr string) *http.Server {
 	for _, route := range routes {
 		mux.HandleFunc(route.Path, route.Handler)
 	}
-	//declaration of basic settings for http server
+	//declaration of basic settings for http server.
 	server := &http.Server{
 		Addr:    Addr,
 		Handler: mux,
