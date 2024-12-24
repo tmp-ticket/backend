@@ -1,0 +1,6 @@
+services:
+  ticket_system:
+    build: 
+      context: ./..
+      dockerfile: ./docker file/Dockerfile
+    

@@ -4,3 +4,5 @@ services:
       context: ./..
       dockerfile: ./docker files/Dockerfile.test
 
+    ports:
+    - 8080:8080
