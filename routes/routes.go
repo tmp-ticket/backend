@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -16,7 +17,7 @@ type Route struct {
 // Convenient list of routes to funuctions to be added to the http server.
 // DO NOT ADD ROUTES WHILE SERVER IS RUNNING!
 var routes = []Route{
-	{"/HelloWorld", HelloWorld},
+	{"HelloWorld", HelloWorld},
 }
 
 // Convenience function to create an http server with routes needed for API.
@@ -24,10 +25,12 @@ var routes = []Route{
 // such as :8080 for port 8080 at localhost or 127.0.0.1:8080 for the same effect.
 func ServerSetup(Addr string) *http.Server {
 
+	version := "v1"
+
 	mux := http.NewServeMux()
 	// Adds all Route structs to the above mux for the http server.
 	for _, route := range routes {
-		mux.HandleFunc(route.Path, route.Handler)
+		mux.HandleFunc(fmt.Sprintf("/api/%s/%s", version, route.Path), route.Handler)
 	}
 	//declaration of basic settings for http server.
 	server := &http.Server{
