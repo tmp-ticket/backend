@@ -1,3 +1,3 @@
 module github.com/tmp-ticket/backend
 
-go 1.18
+go 1.23
