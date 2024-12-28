@@ -1,3 +1,3 @@
-package routes
+package account
 
 func CreateAccount(email string, password string) {}
