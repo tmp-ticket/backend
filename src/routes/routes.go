@@ -18,6 +18,7 @@ type Route struct {
 // DO NOT ADD ROUTES WHILE SERVER IS RUNNING!
 var routes = []Route{
 	{"HelloWorld", HelloWorld},
+	{"login", AuthUser},
 }
 
 // Convenience function to create an http server with routes needed for API.
