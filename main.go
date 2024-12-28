@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/tmp-ticket/backend/routes"
+	"github.com/tmp-ticket/backend/src/routes"
 )
 
 func main() {
