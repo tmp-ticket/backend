@@ -25,7 +25,7 @@ func SetupDBConnection() error {
 		os.Exit(1)
 	}
 
-	test_conn, err := pool.Acquire()
+	test_conn, err := pool.Acquire(context.Background())
 
 	if err != nil {
 		slog.Error(err.Error())
