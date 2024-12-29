@@ -6,6 +6,9 @@ func AuthAccount(email string, password string) (*Account, error) {
 		return nil, err
 	}
 
+	if account == nil {
+		return nil, nil
+	}
 	// check if account password is correct
 
 	return nil, nil

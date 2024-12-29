@@ -5,4 +5,3 @@ WORKDIR /routes
 COPY . .
 
 CMD ["go", "test", "./..."]
-

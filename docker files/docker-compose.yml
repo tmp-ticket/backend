@@ -1,0 +1,23 @@
+services:
+  test_server:
+    build: 
+      context: ./..
+      dockerfile: ./docker files/Dockerfile.test
+
+    env_file: .env
+    ports:
+    - 8080:8080
+    depends_on:
+      db:
+        condition: service_healthy
+  
+  db:
+    image: postgres:latest
+    env_file: .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+    
