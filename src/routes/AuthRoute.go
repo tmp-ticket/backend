@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -23,7 +22,7 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			slog.Log(context.Background(), slog.LevelInfo, err.Error())
+			slog.Info(err.Error())
 			return
 		}
 
@@ -33,25 +32,25 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			slog.Log(context.Background(), slog.LevelInfo, err.Error())
+			slog.Info(err.Error())
 			return
 		}
 		verifyAccount, err := account.AuthAccount(accountInfo.Email, accountInfo.Password)
 
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			slog.Log(context.Background(), slog.LevelError, err.Error())
+			slog.Error(err.Error())
 			return
 		}
 
 		if !verifyAccount.IsAuth() {
 			w.WriteHeader(http.StatusForbidden)
-			slog.Log(context.Background(), slog.LevelInfo, fmt.Sprintf("User %s failed to authenticate", accountInfo.Email))
+			slog.Info(fmt.Sprintf("User %s failed to authenticate", accountInfo.Email))
 			return
 		}
 
 		http.Redirect(w, r, "/home", http.StatusMovedPermanently)
-		slog.Log(context.Background(), slog.LevelInfo, fmt.Sprintf("User %s successfully authenticated", accountInfo.Email))
+		slog.Info(fmt.Sprintf("User %s successfully authenticated", accountInfo.Email))
 		return
 	} else {
 		return
