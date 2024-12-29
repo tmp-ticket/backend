@@ -28,4 +28,6 @@ func TestDBConnection(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	pool.Close()
 }
