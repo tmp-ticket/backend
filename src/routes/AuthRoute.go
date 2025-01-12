@@ -53,6 +53,7 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 		slog.Info(fmt.Sprintf("User %s successfully authenticated", accountInfo.Email))
 		return
 	} else {
+		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
 }
