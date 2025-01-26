@@ -4,4 +4,4 @@ CREATE TABLE accounts (
     password  bytea
 );
 
-CREATE INDEX accounts_email_index on accounts using hash(email);
+--CREATE INDEX accounts_email_index on accounts using hash(email);
