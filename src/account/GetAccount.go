@@ -1,11 +1,7 @@
 package account
 
-type RawAccount struct {
-	email    string
-	id       int
-	password []byte
-}
+import "github.com/tmp-ticket/backend/src/datastructs"
 
-func GetAccount(id int) (*RawAccount, error) { return nil, nil }
+func GetAccount(id int) (*datastructs.RawAccount, error) { return nil, nil }
 
-func GetAccountEmail(email string) (*RawAccount, error) { return nil, nil }
+func GetAccountEmail(email string) (*datastructs.RawAccount, error) { return nil, nil }

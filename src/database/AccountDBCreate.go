@@ -9,17 +9,21 @@ import (
 func CreateAccountDB(email string, password []byte) error {
 
 	if DB_POOL == nil {
-		SetupDBConnection()
+		err := SetupDBConnection()
+
+		if err != nil {
+			return err
+		}
 	}
 
 	conn, err := DB_POOL.GetConn()
 
-	defer conn.Release()
 	if err != nil {
 		slog.Error(err.Error())
 
 		return errors.New("database connection has failed")
 	}
+	defer conn.Release()
 
 	tx, err := conn.Begin(context.Background())
 	if err != nil {
