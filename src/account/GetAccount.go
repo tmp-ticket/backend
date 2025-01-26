@@ -3,7 +3,7 @@ package account
 type RawAccount struct {
 	email    string
 	id       int
-	password string
+	password []byte
 }
 
 func GetAccount(id int) (*RawAccount, error) { return nil, nil }
