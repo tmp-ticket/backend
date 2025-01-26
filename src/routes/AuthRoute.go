@@ -8,12 +8,8 @@ import (
 	"net/http"
 
 	"github.com/tmp-ticket/backend/src/account"
+	"github.com/tmp-ticket/backend/src/datastructs"
 )
-
-type AccountInfo struct {
-	Email    string
-	Password string
-}
 
 func AuthUser(w http.ResponseWriter, r *http.Request) {
 
@@ -26,13 +22,13 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		var accountInfo AccountInfo
+		var accountInfo datastructs.AccountInfo
 
 		err = json.Unmarshal(body, &accountInfo)
 
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			slog.Info(err.Error())
+			slog.Info(fmt.Sprintf("Bad request recieved: %s", err.Error()))
 			return
 		}
 		verifyAccount, err := account.AuthAccount(accountInfo.Email, accountInfo.Password)
