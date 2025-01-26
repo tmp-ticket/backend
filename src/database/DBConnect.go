@@ -17,6 +17,10 @@ var DB_POOL *DBManager
 
 func SetupDBConnection() error {
 
+	if DB_POOL != nil {
+		return nil
+	}
+
 	pool, err := pgxpool.New(context.Background(), fmt.Sprintf("user=%s password=%s host=%s dbname=%s",
 		os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOSTNAME"), os.Getenv("DB_NAME")))
 

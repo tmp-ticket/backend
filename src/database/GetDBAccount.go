@@ -27,7 +27,7 @@ func GetDBAccountEmail(email string) (*datastructs.RawAccount, error) {
 
 	if err != nil {
 		slog.Error(err.Error())
-		return nil, errors.New("Database has failed to connect while gettting account by email")
+		return nil, errors.New("database has failed to connect while gettting account by email")
 	}
 	defer conn.Release()
 	data, err := conn.Query(context.Background(), "SELECT * FROM accounts WHERE email = $1", email)
@@ -38,6 +38,11 @@ func GetDBAccountEmail(email string) (*datastructs.RawAccount, error) {
 	}
 
 	account, err := pgx.CollectExactlyOneRow(data, pgx.RowToAddrOfStructByName[datastructs.RawAccount])
+
+	if err != nil {
+		slog.Error(err.Error())
+		return nil, err
+	}
 
 	return account, nil
 

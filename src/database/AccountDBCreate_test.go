@@ -8,6 +8,8 @@ import (
 
 func TestInsertAccount(t *testing.T) {
 
+	resetDatabase()
+
 	pass, err := bcrypt.GenerateFromPassword([]byte("test"), 0)
 
 	if err != nil {
