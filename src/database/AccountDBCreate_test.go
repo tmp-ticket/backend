@@ -1,10 +1,20 @@
 package database
 
-import "testing"
+import (
+	"testing"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 func TestInsertAccount(t *testing.T) {
 
-	err := CreateAccountDB("test@test.com", "test")
+	pass, err := bcrypt.GenerateFromPassword([]byte("test"), 0)
+
+	if err != nil {
+		t.Errorf("%s", err.Error())
+	}
+
+	err = CreateAccountDB("test@test.com", pass)
 
 	if err != nil {
 		t.Errorf("%s", err.Error())

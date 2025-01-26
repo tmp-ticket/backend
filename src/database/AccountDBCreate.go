@@ -6,7 +6,7 @@ import (
 	"log/slog"
 )
 
-func CreateAccountDB(email string, password string) error {
+func CreateAccountDB(email string, password []byte) error {
 
 	if DB_POOL == nil {
 		SetupDBConnection()
