@@ -45,7 +45,7 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		http.Redirect(w, r, "/home", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/tickets", http.StatusMovedPermanently)
 		slog.Info(fmt.Sprintf("User %s successfully authenticated", accountInfo.Email))
 		return
 	} else {
