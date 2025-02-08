@@ -5,6 +5,9 @@ import (
 	"net/http"
 )
 
+// Version constant for api routes
+const VERSION = "alpha"
+
 /*
 Route struct that contains a path string and handler function for http requests.
 Is to be used inside of ServerSetup for convenience.
@@ -26,12 +29,10 @@ var routes = []Route{
 // such as :8080 for port 8080 at localhost or 127.0.0.1:8080 for the same effect.
 func ServerSetup(Addr string) *http.Server {
 
-	version := "alpha"
-
 	mux := http.NewServeMux()
 	// Adds all Route structs to the above mux for the http server.
 	for _, route := range routes {
-		mux.HandleFunc(fmt.Sprintf("/api/%s/%s", version, route.Path), route.Handler)
+		mux.HandleFunc(fmt.Sprintf("/api/%s/%s", VERSION, route.Path), route.Handler)
 	}
 	//declaration of basic settings for http server.
 	server := &http.Server{
