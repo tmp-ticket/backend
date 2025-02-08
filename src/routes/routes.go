@@ -26,7 +26,7 @@ var routes = []Route{
 // such as :8080 for port 8080 at localhost or 127.0.0.1:8080 for the same effect.
 func ServerSetup(Addr string) *http.Server {
 
-	version := "v1"
+	version := "alpha"
 
 	mux := http.NewServeMux()
 	// Adds all Route structs to the above mux for the http server.
