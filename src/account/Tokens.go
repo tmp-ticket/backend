@@ -1,10 +1,13 @@
 package account
 
 import (
+	"encoding/base64"
 	"errors"
 	"log/slog"
+	"strconv"
+	"time"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/ed25519"
 )
 
@@ -19,7 +22,15 @@ func CreateWebToken(Id int) (*string, error) {
 			return nil, err
 		}
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, jwt.MapClaims{"sub": Id})
+
+	claims := &jwt.RegisteredClaims{
+		Subject:   base64.StdEncoding.EncodeToString([]byte(strconv.Itoa(Id))),
+		Issuer:    "test", //TODO
+		ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(24 * time.Hour)),
+		IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
+		NotBefore: jwt.NewNumericDate(time.Now().UTC()),
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodEdDSA, claims)
 	signed, err := token.SignedString(&priv)
 
 	if err != nil {
@@ -28,6 +39,21 @@ func CreateWebToken(Id int) (*string, error) {
 
 	return &signed, nil
 
+}
+
+func VerifyToken(token string) error {
+	parsedToken, err := jwt.ParseWithClaims(token, jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return pub, nil
+	})
+	if err != nil {
+		return err
+	}
+
+	if !parsedToken.Valid {
+		return errors.New("token not valid")
+	}
+
+	return nil
 }
 
 func setupKeysRand() error {

@@ -42,12 +42,24 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 		if !verifyAccount.IsAuth() {
 			w.WriteHeader(http.StatusForbidden)
 			slog.Info(fmt.Sprintf("User %s failed to authenticate", accountInfo.Email))
-			return
+		} else if verifyAccount.IsAuth() {
+			signed, err := account.CreateWebToken(verifyAccount.Id)
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				slog.Error(err.Error())
+				return
+			}
+			http.Redirect(w, r, "/tickets", http.StatusMovedPermanently)
+			cookie := http.Cookie{
+				Name:     "Token",
+				Value:    *signed,
+				Secure:   true,
+				HttpOnly: true,
+				SameSite: http.SameSiteStrictMode,
+			}
+			http.SetCookie(w, &cookie)
+			slog.Info(fmt.Sprintf("User %s successfully authenticated", accountInfo.Email))
 		}
-
-		http.Redirect(w, r, "/tickets", http.StatusMovedPermanently)
-		slog.Info(fmt.Sprintf("User %s successfully authenticated", accountInfo.Email))
-		return
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
