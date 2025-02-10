@@ -41,19 +41,19 @@ func CreateWebToken(Id int) (*string, error) {
 
 }
 
-func VerifyToken(token string) error {
+func VerifyToken(token string) (*jwt.Token, error) {
 	parsedToken, err := jwt.ParseWithClaims(token, jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return pub, nil
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if !parsedToken.Valid {
-		return errors.New("token not valid")
+		return nil, errors.New("token not valid")
 	}
 
-	return nil
+	return parsedToken, nil
 }
 
 func setupKeysRand() error {
