@@ -43,7 +43,7 @@ func AuthUser(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusForbidden)
 			slog.Info(fmt.Sprintf("User %s failed to authenticate", accountInfo.Email))
 		} else if verifyAccount.IsAuth() {
-			signed, err := account.CreateWebToken(verifyAccount.Id)
+			signed, err := account.CreateWebToken(verifyAccount.GetID())
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				slog.Error(err.Error())

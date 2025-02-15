@@ -6,9 +6,9 @@ import (
 )
 
 type Account struct {
-	Email   string
-	Id      int
-	Is_auth bool
+	email   string
+	id      int
+	is_auth bool
 }
 
 func NewAccountStruct(email string, id int, auth bool) (*Account, error) {
@@ -24,17 +24,17 @@ func NewAccountStruct(email string, id int, auth bool) (*Account, error) {
 	if id < 1 {
 		return nil, errors.New("id is invalid")
 	}
-	return &Account{Email: email, Id: id, Is_auth: auth}, nil
+	return &Account{email: email, id: id, is_auth: auth}, nil
 }
 
 func (account Account) IsAuth() bool {
-	return account.Is_auth
+	return account.is_auth
 }
 
 func (account Account) GetID() int {
-	return account.Id
+	return account.id
 }
 
 func (account Account) GetEmail() string {
-	return account.Email
+	return account.email
 }

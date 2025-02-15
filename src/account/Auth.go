@@ -22,10 +22,10 @@ func AuthAccount(email string, password string) (*datastructs.Account, error) {
 		return nil, err
 	}
 
-	ret_acc := &datastructs.Account{
-		Email:   email,
-		Id:      check_acc.Id,
-		Is_auth: true,
+	ret_acc, err := datastructs.NewAccountStruct(email, check_acc.Id, true)
+
+	if err != nil {
+		return nil, err
 	}
 
 	return ret_acc, nil

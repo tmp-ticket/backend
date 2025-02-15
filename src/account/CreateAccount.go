@@ -13,6 +13,10 @@ func CreateAccount(email string, password string) error {
 		return err
 	}
 
-	database.CreateAccountDB(email, hashpass)
+	err = database.CreateAccountDB(email, hashpass)
+
+	if err != nil {
+		return err
+	}
 	return nil
 }
